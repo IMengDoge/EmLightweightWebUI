@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="src/theme/default/form.css" />
+	</head>
+	<body>
+		<!-- by:易萌教主 -->
+		<form action="" method="get"> 
+			<div class="line" style="width: 500px; height: 32px; margin: 8px;">
+				<input type="text" size="24" placeholder="普通输入框" class="em-input em-input-text" />
+			</div>
+			<div class="line" style="width: 500px; height: 32px; margin: 8px;">
+				<input type="password" size="24" placeholder="普通密码框" class="em-input em-input-pwd" />
+			</div>
+			<div class="line" style="width: 500px; height: 32px; margin: 8px;">
+				<input type="email" size="24" placeholder="普通邮箱框" class="em-input em-input-mail" />
+			</div>
+			<div class="line" style="width: 500px; height: 32px; margin: 8px;">
+				<div class="em-filearea">
+					<div class="em-bound-filearea-viewbox">
+						<input type="text" class="em-filearea-viewbox" placeholder="选择一个文件" onfocus="this.blur();">
+					</div>
+					<div class="em-bound-filearea-upload">
+						<input type="button" class="em-filearea-upload" value="浏览" onclick="setFile();">
+					</div>
+					<input type="file" class="em-file-hidden" onchange="setValues()">
+				</div>
+			</div>
+			<div class="line" style="width: 500px; height: 32px; margin: 8px;">
+				<div class="em-filearea-multip">
+					<div class="em-bound-filearea-viewbox-multip">
+						<input type="text" class="em-filearea-viewbox-multip" placeholder="选择一个或多个文件" readonly="readonly">
+					</div>
+					<div class="em-bound-filearea-upload-multip">
+						<input type="button" class="em-filearea-upload-multip" value="浏览" onclick="setFileMultip();">
+					</div>
+					<input type="file" multiple="multiple" class="em-file-hidden-multip" onchange="setValuesMultip()">
+				</div>
+			</div>
+		</form>
+		<script type="text/javascript">
+			function setFile() {
+				let inputNode = event.path[2].children[2];
+				let evt = new MouseEvent("click", {
+					bubbles: false,
+					cancelable: true,
+					view: window
+				});
+				inputNode.dispatchEvent(evt);
+			}
+
+			function setValues() {
+				let inputNode = event.path[1].children[0].children[0];
+				inputNode.value = event.path[0].files[0].name;
+			}
+		</script>
+		<script type="text/javascript">
+			function setFileMultip() {
+				let inputNode = event.path[2].children[2];
+				let evt = new MouseEvent("click", {
+					bubbles: false,
+					cancelable: true,
+					view: window
+				});
+				inputNode.dispatchEvent(evt);
+			}
+
+			function setValuesMultip() {
+				let inputNode = event.path[1].children[0].children[0];
+				let filesNode = event.path[0].files;
+				console.log(filesNode);
+				let strFiles = "";
+				for (let i = 0; i < filesNode.length; i++) {
+					if (i == filesNode.length - 1) {
+						strFiles += filesNode[i].name;
+					} else {
+						strFiles += filesNode[i].name + ";";
+					}
+				}
+				inputNode.value = strFiles;
+			}
+		</script>
+	</body>
+</html>
